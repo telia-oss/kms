@@ -165,7 +165,7 @@ export async function selectOption(page: Page, selectTestId: string, optionText:
             const item = root?.querySelector(".ant-select-selection-item");
             return (item?.textContent ?? "").trim() === expected;
         },
-        { testId: selectTestId, expected: optionText }
+        { testId: selectTestId, expected: optionText },
     );
 }
 
