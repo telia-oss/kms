@@ -1,7 +1,0 @@
-[default.extend-words]
-GOST = "GOST"
-vas = "vas"
-passin = "passin"
-typ = "typ"
-# Unicode hex code points inside SVG font unicode-range (e.g. U+1F6BA)
-BA = "BA"

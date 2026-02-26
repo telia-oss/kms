@@ -1,15 +1,24 @@
+# Rust / Cargo
 target/
 .cargo_check/
-.history/
-*.swp
-TODO.md
-data/html
+rustc-ice*.txt
+crate/server/Cargo.toml.bak
+vendor/
+# Security / Secrets
 data/keys
 .env
-.venv/
+# Runtime artifacts / Local Data
+data/html
+crate/cli/*.sqlite
+**/*cosmian-kms/sqlite-data*
+http_cache.sqlite
+result*
+sbom.*
+resources/cli.zip
 **/data/private
 **/data/public
 **/data/shared
+<<<<<<< HEAD
 crate/cli/*.sqlite
 .DS_Store
 ._*
@@ -21,21 +30,40 @@ node_modules/
 **/*__pycache__*
 run.sh
 .aider/
+=======
+>>>>>>> 2684d0ca (fix: start cleaning)
 .cache
-.local
+# HSM / Crypto Libraries
 .openssl
 resources/tarballs/openssl-3.1.2.tar.gz
 .utimaco
 .softhsm2
 *.xz*
+<<<<<<< HEAD
 result
 result-*
 crate/server/Cargo.toml.bak
+=======
+# UI / Node
+node_modules/
+>>>>>>> 2684d0ca (fix: start cleaning)
 crate/server/ui*
 ui_non_fips/
-vendor/
-http_cache.sqlite
-sbom.*
-resources/cli.zip
+# OS / IDE / AI
+.DS_Store
+.idea/
+*.swp
+.history/
+.aider/
 .claude
+<<<<<<< HEAD
 ui/test-results
+=======
+.vscode/
+.agent/
+.agents/
+# Other
+TODO.md
+.venv/
+.local
+>>>>>>> 2684d0ca (fix: start cleaning)
