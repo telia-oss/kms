@@ -56,12 +56,13 @@ import init, * as wasmModule from "./wasm/pkg";
 type AppContentProps = {
     isDarkMode: boolean;
     setIsDarkMode: (value: boolean) => void;
+    wasmError: boolean;
 };
 
 const LS_DARKMODE_KEY = "darkMode";
 const initialDarkMode = localStorage.getItem(LS_DARKMODE_KEY);
 
-const AppContent: React.FC<AppContentProps> = ({ isDarkMode, setIsDarkMode }) => {
+const AppContent: React.FC<AppContentProps> = ({ isDarkMode, setIsDarkMode, wasmError }) => {
     const { setServerUrl, setIdToken, setUserId } = useAuth();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAuthLoading, setIsAuthLoading] = useState(false);
@@ -149,7 +150,17 @@ const AppContent: React.FC<AppContentProps> = ({ isDarkMode, setIsDarkMode }) =>
             ) : (
                 <>
                     <Route index element={<LoginPage auth={false} />} />
-                    <Route path="/" element={<MainLayout isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} authMethod={authMethod} />}>
+                    <Route
+                        path="/"
+                        element={
+                            <MainLayout
+                                isDarkMode={isDarkMode}
+                                setIsDarkMode={setIsDarkMode}
+                                authMethod={authMethod}
+                                wasmError={wasmError}
+                            />
+                        }
+                    >
                         <Route path="locate" element={<LocateForm />} />
                         <Route path="sym">
                             <Route path="keys/create" element={<SymKeyCreateForm />} />
@@ -249,6 +260,7 @@ const AppContent: React.FC<AppContentProps> = ({ isDarkMode, setIsDarkMode }) =>
 function App() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [isWasmReady, setIsWasmReady] = useState(false);
+    const [wasmError, setWasmError] = useState(false);
     const branding = useBranding();
 
     useEffect(() => {
@@ -259,6 +271,7 @@ function App() {
                 // Avoid unhandled promise rejections; UI may still render but
                 // any WASM-backed actions will fail and surface their own errors.
                 console.error("WASM init failed:", e);
+                setWasmError(true);
             } finally {
                 setIsWasmReady(true);
             }
@@ -373,7 +386,7 @@ function App() {
                 }}
             >
                 <AuthProvider>
-                    <AppContent isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+                    <AppContent isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} wasmError={wasmError} />
                 </AuthProvider>
             </ConfigProvider>
         </BrowserRouter>

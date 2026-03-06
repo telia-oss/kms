@@ -44,27 +44,27 @@ const Sidebar: React.FC = () => {
     }, [fetchCreatePermission, idToken, serverUrl]);
 
     // Process menu items to disable "Create" and "Import" options based on access rights
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const processMenuItems = (_hasCreateAccess: boolean) => {
+    const processMenuItems = (hasCreateAccess: boolean) => {
         const processItems = (items: MenuItem[]): MenuItem[] => {
             return items.map((item) => {
                 const newItem = { ...item };
 
                 // Check if item is a Create item
-                // const isCreateItem = item.key && (item.key.includes("/create") || item.key.includes("/create-") || item.label === "Create");
+                const isCreateItem = item.key && (item.key.includes("/create") || item.key.includes("/create-") || item.label === "Create");
 
                 // // Check if item is an Import item
-                // const isImportItem = item.key && (item.key.includes("/import") || item.key.includes("/import-") || item.label === "Import");
+                const isImportItem = item.key && (item.key.includes("/import") || item.key.includes("/import-") || item.label === "Import");
 
                 // // Handle disabled state based on access rights
-                // if (isCreateItem || isImportItem) {
-                //     newItem.disabled = !hasCreateAccess;
-                // }
+                if (isCreateItem || isImportItem) {
+                    newItem.disabled = !hasCreateAccess;
+                }
 
                 // Process children recursively if they exist
                 if (newItem.children) {
                     newItem.children = processItems(newItem.children);
                 }
+                console.log(isCreateItem, isImportItem, hasCreateAccess);
 
                 return newItem;
             });
