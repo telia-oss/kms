@@ -143,10 +143,10 @@ const baseMenu: MenuItem[] = [
         label: "Attributes",
         icon: <ToolOutlined />,
         children: [
-            {key: "attributes/get", label: "Get"},
-            {key: "attributes/set", label: "Set"},
-            {key: "attributes/modify", label: "Modify"},
-            {key: "attributes/delete", label: "Delete"},
+            { key: "attributes/get", label: "Get" },
+            { key: "attributes/set", label: "Set" },
+            { key: "attributes/modify", label: "Modify" },
+            { key: "attributes/delete", label: "Delete" },
         ],
     },
     {

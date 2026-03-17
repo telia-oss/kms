@@ -97,9 +97,7 @@ const AppContent: React.FC<AppContentProps> = ({ isDarkMode, setIsDarkMode, wasm
                     body: JSON.stringify(request),
                 });
                 if (resp.ok) {
-                    const vendorId = wasmModule.parse_query_server_information_response(
-                        JSON.stringify(await resp.json())
-                    ) as string;
+                    const vendorId = wasmModule.parse_query_server_information_response(JSON.stringify(await resp.json())) as string;
                     wasmModule.set_vendor_id(vendorId);
                     console.info(`[KMS] vendor_id set to "${vendorId}"`);
                 }
@@ -194,8 +192,8 @@ const AppContent: React.FC<AppContentProps> = ({ isDarkMode, setIsDarkMode, wasm
                             <Route path="verify" element={<ECVerifyForm />} />
                         </Route>
                         <Route path="mac">
-                            <Route path="compute" element={<MacComputeForm/>}/>
-                            <Route path="verify" element={<MacVerifyForm/>}/>
+                            <Route path="compute" element={<MacComputeForm />} />
+                            <Route path="verify" element={<MacVerifyForm />} />
                         </Route>
                         <Route path="cc">
                             <Route path="keys/create-master-key-pair" element={<CovercryptMasterKeyForm />} />
@@ -239,10 +237,10 @@ const AppContent: React.FC<AppContentProps> = ({ isDarkMode, setIsDarkMode, wasm
                             <Route path="certs/certify" element={<CertificateCertifyForm />} />
                         </Route>
                         <Route path="attributes">
-                            <Route path="get" element={<AttributeGetForm/>}/>
-                            <Route path="set" element={<AttributeSetForm/>}/>
-                            <Route path="modify" element={<AttributeModifyForm/>}/>
-                            <Route path="delete" element={<AttributeDeleteForm/>}/>
+                            <Route path="get" element={<AttributeGetForm />} />
+                            <Route path="set" element={<AttributeSetForm />} />
+                            <Route path="modify" element={<AttributeModifyForm />} />
+                            <Route path="delete" element={<AttributeDeleteForm />} />
                         </Route>
                         <Route path="azure">
                             <Route path="import-kek" element={<ImportAzureKekForm />} />

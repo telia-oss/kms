@@ -22,10 +22,7 @@ export function extractUuid(text: string): string | null {
  * Example: `extractUuidAfterLabel(text, "Public key Id")` returns `"abc-...-123_pk"`.
  */
 export function extractUuidAfterLabel(text: string, label: string): string | null {
-    const pattern = new RegExp(
-        label + ":\\s*([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:_[a-z]+)?)",
-        "i"
-    );
+    const pattern = new RegExp(label + ":\\s*([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?:_[a-z]+)?)", "i");
     const m = text.match(pattern);
     return m ? m[1] : null;
 }
@@ -141,12 +138,16 @@ export async function selectOption(page: Page, selectTestId: string, optionText:
 
         if (!clicked) {
             // Toggle virtual-list scroll position so all items are rendered.
-            if (await listHolder.count() > 0) {
+            if ((await listHolder.count()) > 0) {
                 if (!scrolledToBottom) {
-                    await listHolder.evaluate((el) => { el.scrollTop = el.scrollHeight; });
+                    await listHolder.evaluate((el) => {
+                        el.scrollTop = el.scrollHeight;
+                    });
                     scrolledToBottom = true;
                 } else {
-                    await listHolder.evaluate((el) => { el.scrollTop = 0; });
+                    await listHolder.evaluate((el) => {
+                        el.scrollTop = 0;
+                    });
                     scrolledToBottom = false;
                 }
             }
@@ -210,12 +211,16 @@ export async function selectOptionById(page: Page, cssSelector: string, optionTe
         }
 
         // Toggle between bottom / top to cover all items in the virtual list.
-        if (await listHolder.count() > 0) {
+        if ((await listHolder.count()) > 0) {
             if (!scrolledToBottom) {
-                await listHolder.evaluate((el) => { el.scrollTop = el.scrollHeight; });
+                await listHolder.evaluate((el) => {
+                    el.scrollTop = el.scrollHeight;
+                });
                 scrolledToBottom = true;
             } else {
-                await listHolder.evaluate((el) => { el.scrollTop = 0; });
+                await listHolder.evaluate((el) => {
+                    el.scrollTop = 0;
+                });
                 scrolledToBottom = false;
             }
         }
@@ -340,8 +345,7 @@ export function writeTempFile(name: string, content: string | Buffer): string {
  * Defaults to the local development KMS port; override via PLAYWRIGHT_KMS_URL env var.
  */
 const KMS_API_URL =
-    (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env
-        ?.PLAYWRIGHT_KMS_URL ?? "http://127.0.0.1:9998";
+    (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env?.PLAYWRIGHT_KMS_URL ?? "http://127.0.0.1:9998";
 
 /**
  * Create an HMAC key via direct KMIP API call (bypasses the UI since there is
