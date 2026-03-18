@@ -167,6 +167,9 @@ export async function selectOption(page: Page, selectTestId: string, optionText:
             return (item?.textContent ?? "").trim() === expected;
         },
         { testId: selectTestId, expected: optionText },
+        // This is a CI failure fix. Selecting "Cryptographic Algorithm" triggers a React re-render that briefly clears
+        // the selection-item text. `polling: 200` retries every 200 ms to catch the settled DOM state.
+        { polling: 200 },
     );
 }
 
