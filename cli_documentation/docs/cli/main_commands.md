@@ -46,7 +46,7 @@ Possible values:  `"true", "false"`
 
 **`azure`** [[3]](#3-ckms-azure)  Support for Azure specific interactions
 
-**`bench`** [[4]](#4-ckms-bench)  Run a set of benches to check the server performance
+**`bench`** [[4]](#4-ckms-bench)  Run benchmarks using criterion for statistical analysis.
 
 **`cc`** [[5]](#5-ckms-cc)  Manage Covercrypt keys and policies. Rotate attributes. Encrypt and decrypt data
 
@@ -466,25 +466,34 @@ See: <https://learn.microsoft.com/en-us/azure/key-vault/keys/byok-specification>
 
 ## 4 ckms bench
 
-Run a set of benches to check the server performance
+Run benchmarks using criterion for statistical analysis.
 
 ### Usage
 `ckms bench [options]`
 ### Arguments
-`--number-of-threads [-t] <NUM_THREADS>` The number of parallel threads to use
+`--mode [-m] <MODE>` Benchmark category (default: all)
 
-`--batch-size [-b] <BATCH_SIZE>` The size of an encryption/decryption batch.
-A size of 1 does not use the `BulkData` API
+Possible values:  `"all", "encrypt", "key-creation", "sign-verify", "batch"` [default: `"all"`]
 
-`--num-batches [-n] <NUM_BATCHES>` The number of batches to run
+`--format [-f] <FORMAT>` Output format
 
-`--wrapped-key [-w] <WRAPPED_KEY>` Use a wrapped key (by a 4096 RSA key) to encrypt the symmetric key
+Possible values:  `"text", "json", "markdown"` [default: `"text"`]
+
+`--quick <QUICK>` Quick benchmark: 10 samples, 1s measurement, 0.5s warmup
+
+Possible values:  `"true", "false"` [default: `"false"`]
+
+`--sanity <SANITY>` Sanity/pre-flight check: 10 samples (criterion minimum), 1ms measurement, no warmup. Exercises every operation once to verify the server handles all algorithms correctly
 
 Possible values:  `"true", "false"` [default: `"false"`]
 
-`--verbose [-v] <VERBOSE>` Display batch results details
+`--time [-t] <TIME>` Maximum measurement time per benchmark in seconds (default: 10). Caps how long criterion spends on each benchmark function. Ignored in --sanity and --quick modes
 
-Possible values:  `"true", "false"` [default: `"false"`]
+`--save-baseline <SAVE_BASELINE>` Save results under a named baseline in target/criterion/<bench>/<name>/. Use this to snapshot a run before a change. To compare, run again with --load-baseline <name> (or without any flag to diff against "base"). Example: --save-baseline before-my-change
+
+`--load-baseline <LOAD_BASELINE>` Compare results against a previously saved baseline. Prints change% in console output for each benchmark. Example: --load-baseline before-my-change
+
+`--version-label <VERSION_LABEL>` When emitting --format json, insert this label as the version column so that criterion-table renders versions as columns for proper comparison. Run baseline first, compare second, then combine: cat v5.12.json v5.17.json | criterion-table > diff.md
 
 
 

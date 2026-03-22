@@ -2,16 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-
-## [5.x.x] - 2026-03-x
-
-- Microsoft SQL Server External Key Management (EKM) is now available via a Windows DLL provider that forwards key operations to the Cosmian KMS over mutual TLS.
-
-### 🚀 Features
-
 ## [5.18.0] - 2026-04-XX
 
 ### 🚀 Features
+
+#### `ckms bench` concurrency sweep with time limits
+
+- `ckms bench`: added benchmarks for AES-XTS, AES-GCM-SIV, ECIES, Salsa Sealed Box, Covercrypt, and Configurable KEM (ML-KEM-512/768, hybrid variants); `run_benchmarks.sh` now injects `lscpu` output and KMS server version into `documentation/docs/benchmarks.md`
+- `ckms bench`: added `--format` option (`text`/`json`); JSON mode collects criterion estimates into `target/criterion/benchmarks.json`
+- `ckms bench`: criterion is now a regular dependency (not just dev-dependency)
+- `ckms bench`: fixed ChaCha20-Poly1305 benchmarks — changed from `[128, 256]` to `[256]` key sizes (ChaCha20 only supports 256-bit keys)
 
 #### Support of AWS Bring Your Own Key (BYOK)
 
