@@ -102,7 +102,7 @@ jobs:
 
   hsm:
     name: HSM ${{ matrix.hsm-type }} - ${{ matrix.features }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, hsm]
     strategy:
       fail-fast: false
       matrix:
@@ -110,6 +110,7 @@ jobs:
           - utimaco
           - proteccio
           - softhsm2
+          - crypt2pay
         features: [fips, non-fips]
         exclude:
           # parallel connections on proteccio is not supported
